@@ -1,0 +1,38 @@
+ 
+    .chat-more-block {
+      margin-top: 50px;
+      .help-text {
+        background-color: #f4f4f4;
+        padding: 50px 30px !important;
+        text-align: left;
+        h2 {
+          margin: 0 0 10px;
+          font-family: inherit;
+          color: #333333;
+        }
+        p {
+          margin-bottom: 10px;
+        }
+        a::after {
+          background: url(/images/spriteIcons.png) -3px -636px no-repeat;
+          content: " ";
+          display: inline-block;
+          width: 16px;
+          height: 12px;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      .chat-more-block {
+        padding-left: 15px;
+        padding-right: 15px;
+        .help-text {
+          min-height: 190px;
+          h2 {
+            font-family: inherit;
+          }
+        }
+      }
+    }
+
+  
