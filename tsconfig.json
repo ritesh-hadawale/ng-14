@@ -28,7 +28,7 @@
       ]
     },
     "types": [ "node", "angular",
-    "jQuery", "module" ],
+    "jQuery", "module", "angular-cookies" ],
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "angularCompilerOptions": {

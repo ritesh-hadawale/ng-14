@@ -112,7 +112,7 @@ export class BoldchatService implements OnDestroy {
   private checkAvailability() {
     return this.http
       .get(
-        "/rest/model/vitaminshoppe/boldChat/actor/VSIBoldChatActor/getChatAvailability"
+        "https://qa1.vitaminshoppe.com//rest/model/vitaminshoppe/boldChat/actor/VSIBoldChatActor/getChatAvailability"
       )
       .subscribe((data: any) => {
         this.chatAvailability.next(data.Available || false);

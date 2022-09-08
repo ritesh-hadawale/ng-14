@@ -9,6 +9,7 @@
     "test": "ng test",
     "postinstall": "ngcc"
   },
+  
   "private": true,
   "dependencies": {
     "-": "0.0.1",
@@ -20,12 +21,19 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "@types/angular-cookies": "^1.8.0",
     "@types/d3": "^7.4.0",
+    "bootstrap": "^5.2.0",
     "d3": "^7.6.1",
     "for": "^0.1.0",
     "install": "^0.13.0",
     "jquery": "^3.6.0",
+    "ng-recaptcha": "^10.0.0",
+    "ngx-cookie-service": "^12.0.3",
+    "ngx-google-analytics": "^14.0.0",
     "ngx-slick-carousel": "^0.6.0",
+    "node": "^16.17.0",
+    "npm": "^8.19.1",
     "rxjs": "~7.5.0",
     "slick-carousel": "^1.8.1",
     "tslib": "^2.3.0",
