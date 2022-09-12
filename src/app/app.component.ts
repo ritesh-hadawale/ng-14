@@ -1,5 +1,14 @@
-import { Component } from '@angular/core';
-import { RiskifiedBeaconServiceLegacyService } from './services/riskified-beacon-service-legacy.service';
+import { Component, EnvironmentInjector, OnInit, Renderer2  } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+//RiskiFied service loaded on page load
+import { RiskifiedBeaconServiceLegacyService } from './vendor/riskified/riskified-beacon.service';
+
+import { DatadomeIntegrationService } from './vendor/datadome/datadome-integration.service';
+
+const SCRIPT_PATH = '/src/app/vendor/datadome/datadome-tag.js';
+declare let gapi: any;
     
 @Component({
   selector: 'app-root',
@@ -7,90 +16,44 @@ import { RiskifiedBeaconServiceLegacyService } from './services/riskified-beacon
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  slides = [
-    { img: 'https://via.placeholder.com/600.png/09f/fff' },
-    { img: 'https://via.placeholder.com/600.png/021/fff' },
-    { img: 'https://via.placeholder.com/600.png/321/fff' },
-    { img: 'https://via.placeholder.com/600.png/422/fff' },
-    { img: 'https://via.placeholder.com/600.png/654/fff' },
-    { img: 'https://via.placeholder.com/600.png/321/fff' },
-    { img: 'https://via.placeholder.com/600.png/422/fff' },
-    { img: 'https://via.placeholder.com/600.png/654/fff' },
-  ];
-  slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
-  addSlide() {
-    this.slides.push({ img: 'http://placehold.it/350x150/777777' });
+  posts: any;
+  element: any;
+  
+  
+  constructor(
+    private riskifiedLegacyService: RiskifiedBeaconServiceLegacyService,
+    private datadomeService: DatadomeIntegrationService,
+    private http: HttpClient,
+    private renderer: Renderer2,
+    ) {}
+  ngOnInit(): void {
+    const scriptElement = this.datadomeService.loadJsScript(this.renderer, SCRIPT_PATH);
+    scriptElement.onload = () => {
+     console.log('Datdome script loaded');
+      console.log(gapi);
+
+      // Load the JavaScript client library.
+      // (the init() method has been omitted for brevity)
+      gapi.load('client', this.init);
+    }
+    scriptElement.onerror = () => {
+      console.log('Could not load the Google API Script!');
+    }
+
+   
   }
-  removeSlide() {
-    this.slides.length = this.slides.length - 1;
+  init(arg0: string, init: any) {
+    throw new Error('Method not implemented.');
   }
-  slickInit(e: any) {
-    console.log('slick initialized');
+
+  // method to fetch the data from server/
+  fetchDataFromServer(){
+    this.posts = this.http.get('/api/comments/').pipe(map((posts) => {return posts;}))
+    console.log(this.http.get('/api/comments/id'))
   }
-  breakpoint(e: any) {
-    console.log('breakpoint');
-  }
-  afterChange(e: any) {
-    console.log('afterChange');
-  }
-  beforeChange(e: any) {
-    console.log('beforeChange');
-  }
-  constructor(private riskifiedLegacyService: RiskifiedBeaconServiceLegacyService) {}
-  ngOnInit(): void {}
+
 }
 
-
-
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
-// import { ReCaptchaV3Service } from 'ng-recaptcha';
-// import { UserRegistrationModel} from './user-registration-model.model'
-// import { FormsModule } from '@angular/forms';
-// import { ReactiveFormsModule } from '@angular/forms';
-
-
-// // import { ReCaptchaService } from './re-captcha.service';
-// @Component({
-//   selector: 'app-root',
-//   templateUrl: './app.component.html',
-//   styleUrls: ['./app.component.scss'],
-// })
-// export class AppComponent implements OnInit {
-//     title = 'Angular14App';
-//     registerForm!: FormGroup;
-//     submitted = false;
-//     reCAPTCHAToken: string = "";
-//     tokenVisible: boolean = false;
-//     registrationInfo!: UserRegistrationModel;
-
-    
-        
-
-    
-//     constructor(private formBuilder: FormBuilder, private recaptchaV3Service: ReCaptchaV3Service,
-//            private riskifiedLegacyService: RiskifiedBeaconServiceLegacyService
-//         ) {}
-//     ngOnInit() {
-//         // this.riskifiedLegacyService.myFunction();
-//         this.registerForm = new FormGroup({
-//             UserName: new FormControl(),
-//             UserEmailId: new FormControl(),
-//             password: new FormControl(),
-//             confirmPassword: new FormControl(),
-//         })
-       
-//     }
-//     onSubmit() {
-//         this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
-//             this.tokenVisible = true;
-//             this.reCAPTCHAToken = `Token [${token}] generated`;
-//         });
-//     }
-    
-    
-    
-// }
 
 
 

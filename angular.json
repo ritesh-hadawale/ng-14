@@ -28,14 +28,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js",
-              "src/datadome-tag.js"
+              "src/app/vendor/datadome/datadome-tag.js"
             ]
           },
           "configurations": {
@@ -73,6 +70,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          /* added path of proxy file as when we serve app it compiles with proxy.config.js */
+          "options": {
+            "browserTarget": "crmapp:build",
+            "proxyConfig": "src/proxy.config.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "crmapp:build:production"
@@ -109,7 +111,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/slick-carousel/slick/slick.min.js",
-              "src/datadome-tag.js"
+              "src/app/vendor/datadome/datadome-tag.js"
+              
             ]
           }
         }
